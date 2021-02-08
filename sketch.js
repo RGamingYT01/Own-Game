@@ -57,7 +57,7 @@ fill("white")
 
 }
 function spawnObstacles() {
-    if(frameCount % 30 === 0) {
+    if(frameCount % 60 === 0) {
       var zomb = createSprite(random(0,displayWidth-40),random(-200,displayHeight),200,200);
       zomb.velocityX = -4;
       
