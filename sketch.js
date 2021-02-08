@@ -4,6 +4,9 @@ var shooter;
 var shooterImg;
 var bgImg;
 var zombImg1,zombImg2,zombImg3;
+var gameState = 0;
+var zombHealth;
+var shooterHealth = 3;
 
 function preload(){
 shooterImg = loadImage("sprites/shooter.png");
@@ -26,6 +29,32 @@ spawnObstacles();
 drawSprites();
 camera.x = shooter.x;
 camera.y = shooter.y;
+if (mouseX>=690 && mouseY<=415){
+        shooter.rotation = -90;
+}
+if (mouseX>=815 && mouseY<=415){
+        shooter.rotation = -45;
+}
+if (mouseX>=815 && mouseY>=415){
+        shooter.rotation = 0;
+}
+if (mouseX>=815 && mouseY>=470){
+        shooter.rotation = 45;
+}
+if (mouseX<=815 && mouseY>=470){
+        shooter.rotation = 90;
+}
+if (mouseX<=690 && mouseY>=470){
+        shooter.rotation = 135;
+}
+if (mouseX<=690 && mouseY<=470){
+        shooter.rotation = 180;
+}
+if (mouseX<=690 && mouseY<=415){
+        shooter.rotation = -135;
+}
+fill("white")
+
 }
 function spawnObstacles() {
     if(frameCount % 30 === 0) {
