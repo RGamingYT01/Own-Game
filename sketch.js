@@ -8,6 +8,7 @@ var gameState = 0;
 var zombHealth;
 var shooterHealth = 3;
 var bullet, bulletImg;
+var zombGrp, bulletGrp;
 function preload(){
 shooterImg = loadImage("sprites/shooter.png");
 bgImg = loadImage("sprites/ground.jpg");
@@ -21,7 +22,8 @@ createCanvas(displayWidth,displayHeight);
 shooter = createSprite(200,200);
 shooter.addImage(shooterImg);
 shooter.scale = 0.5;
-
+zombGrp = new Group();
+bulletGrp = new Group();
 
 }
 function draw(){
@@ -58,85 +60,67 @@ if (mouseX<=690 && mouseY<=470){
 }
 
 if( keyWentDown("space") && mouseX<=690 && mouseY<=415){
-bullet = createSprite(shooter.x,shooter.y,20,20);
-bullet.addImage(bulletImg);
-bullet.scale = 0.1;    
-bullet.rotation = -45;    
+spawnbullet();
+bullet.rotation = -45;  
 bullet.velocityX = -5;
 bullet.velocityY = -5;
-bullet.lifetime = 600;
 }else
 if( keyWentDown("space") && mouseX<=690 && mouseY<=470){
-        bullet = createSprite(shooter.x,shooter.y,20,20);
-        bullet.addImage(bulletImg);
-        bullet.scale = 0.1;    
-        bullet.rotation = 90;    
+        spawnbullet();
+        bullet.rotation = 90;  
         bullet.velocityX = -5;
         bullet.velocityY = 0;
-        bullet.lifetime = 600;
         }else
-        if( keyWentDown("space") && mouseX<=690 && mouseY>=470){
-                bullet = createSprite(shooter.x,shooter.y,20,20);
-                bullet.addImage(bulletImg);
-                bullet.scale = 0.1;    
-                bullet.rotation = 45;    
-                bullet.velocityX =  -5;
+        if( keyWentDown("space") && mouseX<=690 && mouseY>=470){    
+                spawnbullet();
+                bullet.rotation = 45;  
+                bullet.velocityX = -5;
                 bullet.velocityY = 5;
-                bullet.lifetime = 600;        
                 }else
                 if( keyWentDown("space") && mouseX<=815 && mouseY>=470){
-                        bullet = createSprite(shooter.x,shooter.y,20,20);
-                        bullet.addImage(bulletImg);
-                        bullet.scale = 0.1;    
-                        bullet.rotation = 0;    
+                        spawnbullet();
+                        bullet.rotation = 0;  
                         bullet.velocityX = 0;
                         bullet.velocityY = 5;
-                        bullet.lifetime = 600;
+                        
                         }else
                         if( keyWentDown("space") && mouseX>=815 && mouseY>=470){
-                                bullet = createSprite(shooter.x,shooter.y,20,20);
-                                bullet.addImage(bulletImg);
-                                bullet.scale = 0.1;    
-                                bullet.rotation = 135;    
+                                spawnbullet();
+                                bullet.rotation = -45;  
                                 bullet.velocityX = 5;
                                 bullet.velocityY = 5;
-                                bullet.lifetime = 600;
                                 }else
                                 if( keyWentDown("space") && mouseX>=815 && mouseY>=415){
-                                        bullet = createSprite(shooter.x,shooter.y,20,20);
-                                        bullet.addImage(bulletImg);
-                                        bullet.scale = 0.1;    
-                                        bullet.rotation = 90;    
+                                        spawnbullet();
+                                        bullet.rotation = 90;  
                                         bullet.velocityX = 5;
                                         bullet.velocityY = 0;
-                                        bullet.lifetime = 600;
                                         }else
                                         if( keyWentDown("space") && mouseX>=815 && mouseY<=415){
-                                                bullet = createSprite(shooter.x,shooter.y,20,20);
-                                                bullet.addImage(bulletImg);
-                                                bullet.scale = 0.1;    
-                                                bullet.rotation = 45;    
+                                                spawnbullet();
+                                                bullet.rotation = 45;  
                                                 bullet.velocityX = 5;
                                                 bullet.velocityY = -5;
-                                                bullet.lifetime = 600;
                                                 }else
                                                 if( keyWentDown("space") && mouseX>=690 && mouseY<=415){
-                                                        bullet = createSprite(shooter.x,shooter.y,20,20);
-                                                        bullet.addImage(bulletImg);
-                                                        bullet.scale = 0.1;    
-                                                        bullet.rotation = 0;    
+                                                        spawnbullet();
+                                                        bullet.rotation = 0;  
                                                         bullet.velocityX = 0;
                                                         bullet.velocityY = -5;
-                                                        bullet.lifetime = 600;
                                                         }
-                                                
+                                                        if (bulletGrp.collide(zombGrp)){
+                                                                bulletGrp.destroyEach();
+                                                                zombGrp.destroyEach();
+                                                        }
+
 
 }
 function spawnObstacles() {
+        
     if(frameCount % 60 === 0) {
       var zomb = createSprite(random(0,displayWidth-40),random(-200,displayHeight),200,200);
       zomb.velocityX = -4;
-      
+      zombGrp.add(zomb);
       //generate random obstacles
       var rand = Math.round(random(1,3));
       switch(rand) {
@@ -156,8 +140,19 @@ function spawnObstacles() {
       //assign scale and lifetime to the obstacle           
       zomb.scale = 0.8;
       zomb.lifetime = 600;
+      zomb.debug = true;
+      zomb.setCollider('circle',0,0,75)
       //add each obstacle to the group
      // zomb.add(obstacle);
      
     }
+  }
+  function spawnbullet(){
+          
+        bullet = createSprite(shooter.x,shooter.y,20,20);
+        bullet.addImage(bulletImg);
+        bulletGrp.add(bullet)
+        bullet.scale = 0.1;    
+        bullet.lifetime = 600;
+
   }
