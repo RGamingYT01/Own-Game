@@ -140,7 +140,7 @@ function spawnObstacles() {
       //assign scale and lifetime to the obstacle           
       zomb.scale = 0.8;
       zomb.lifetime = 600;
-      //zomb.debug = true;
+    //  zomb.debug = true;
       zomb.setCollider('circle',0,0,75)
       //add each obstacle to the group
      // zomb.add(obstacle);
