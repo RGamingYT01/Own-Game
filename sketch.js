@@ -7,19 +7,21 @@ var zombImg1,zombImg2,zombImg3;
 var gameState = 0;
 var zombHealth;
 var shooterHealth = 3;
-
+var bullet, bulletImg;
 function preload(){
 shooterImg = loadImage("sprites/shooter.png");
 bgImg = loadImage("sprites/ground.jpg");
 zombImg1 = loadImage("sprites/zomb1.png");
 zombImg2 = loadImage("sprites/zomb2.png");
 zombImg3 = loadImage("sprites/zomb3.png");
+bulletImg = loadImage("sprites/bullet.png")
 }
 function setup(){
-createCanvas(displayWidth,displayHeight)
-shooter = createSprite(200,200)
-shooter.addImage(shooterImg)
+createCanvas(displayWidth,displayHeight);
+shooter = createSprite(200,200);
+shooter.addImage(shooterImg);
 shooter.scale = 0.5;
+
 
 }
 function draw(){
@@ -50,10 +52,84 @@ if (mouseX<=690 && mouseY>=470){
 if (mouseX<=690 && mouseY<=470){
         shooter.rotation = 180;
 }
-if (mouseX<=690 && mouseY<=415){
+ if (mouseX<=690 && mouseY<=415 ){
         shooter.rotation = -135;
+
 }
-fill("white")
+
+if( keyWentDown("space") && mouseX<=690 && mouseY<=415){
+bullet = createSprite(shooter.x,shooter.y,20,20);
+bullet.addImage(bulletImg);
+bullet.scale = 0.1;    
+bullet.rotation = -45;    
+bullet.velocityX = -5;
+bullet.velocityY = -5;
+bullet.lifetime = 600;
+}else
+if( keyWentDown("space") && mouseX<=690 && mouseY<=470){
+        bullet = createSprite(shooter.x,shooter.y,20,20);
+        bullet.addImage(bulletImg);
+        bullet.scale = 0.1;    
+        bullet.rotation = 90;    
+        bullet.velocityX = -5;
+        bullet.velocityY = 0;
+        bullet.lifetime = 600;
+        }else
+        if( keyWentDown("space") && mouseX<=690 && mouseY>=470){
+                bullet = createSprite(shooter.x,shooter.y,20,20);
+                bullet.addImage(bulletImg);
+                bullet.scale = 0.1;    
+                bullet.rotation = 45;    
+                bullet.velocityX =  -5;
+                bullet.velocityY = 5;
+                bullet.lifetime = 600;        
+                }else
+                if( keyWentDown("space") && mouseX<=815 && mouseY>=470){
+                        bullet = createSprite(shooter.x,shooter.y,20,20);
+                        bullet.addImage(bulletImg);
+                        bullet.scale = 0.1;    
+                        bullet.rotation = 0;    
+                        bullet.velocityX = 0;
+                        bullet.velocityY = 5;
+                        bullet.lifetime = 600;
+                        }else
+                        if( keyWentDown("space") && mouseX>=815 && mouseY>=470){
+                                bullet = createSprite(shooter.x,shooter.y,20,20);
+                                bullet.addImage(bulletImg);
+                                bullet.scale = 0.1;    
+                                bullet.rotation = 135;    
+                                bullet.velocityX = 5;
+                                bullet.velocityY = 5;
+                                bullet.lifetime = 600;
+                                }else
+                                if( keyWentDown("space") && mouseX>=815 && mouseY>=415){
+                                        bullet = createSprite(shooter.x,shooter.y,20,20);
+                                        bullet.addImage(bulletImg);
+                                        bullet.scale = 0.1;    
+                                        bullet.rotation = 90;    
+                                        bullet.velocityX = 5;
+                                        bullet.velocityY = 0;
+                                        bullet.lifetime = 600;
+                                        }else
+                                        if( keyWentDown("space") && mouseX>=815 && mouseY<=415){
+                                                bullet = createSprite(shooter.x,shooter.y,20,20);
+                                                bullet.addImage(bulletImg);
+                                                bullet.scale = 0.1;    
+                                                bullet.rotation = 45;    
+                                                bullet.velocityX = 5;
+                                                bullet.velocityY = -5;
+                                                bullet.lifetime = 600;
+                                                }else
+                                                if( keyWentDown("space") && mouseX>=690 && mouseY<=415){
+                                                        bullet = createSprite(shooter.x,shooter.y,20,20);
+                                                        bullet.addImage(bulletImg);
+                                                        bullet.scale = 0.1;    
+                                                        bullet.rotation = 0;    
+                                                        bullet.velocityX = 0;
+                                                        bullet.velocityY = -5;
+                                                        bullet.lifetime = 600;
+                                                        }
+                                                
 
 }
 function spawnObstacles() {
